@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "568140444738",
+    "project_id": "fir-notification-1cfee",
+    "storage_bucket": "fir-notification-1cfee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568140444738:android:44f4b841e67cedcecce9db",
+        "android_client_info": {
+          "package_name": "com.febrian.firebasenotification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568140444738-p2fjkvfa0ch67v1r9grmk0d4s2i92ate.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDihfbAfCbCI1iW1kWyk0r1oUkeQTxtt0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568140444738-p2fjkvfa0ch67v1r9grmk0d4s2i92ate.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
