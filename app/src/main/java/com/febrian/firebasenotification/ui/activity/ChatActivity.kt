@@ -2,29 +2,21 @@ package com.febrian.firebasenotification.ui.activity
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.febrian.firebasenotification.data.NotificationData
-import com.febrian.firebasenotification.api.NotificationService
-import com.febrian.firebasenotification.data.PushNotification
-import com.febrian.firebasenotification.data.Chat
-import com.febrian.firebasenotification.data.User
+import androidx.appcompat.app.AppCompatActivity
+import com.febrian.chat_sdk.data.Chat
+import com.febrian.chat_sdk.data.User
+import com.febrian.chat_sdk.viewmodel.ChatViewModel
+import com.febrian.chat_sdk.utils.Constant
+import com.febrian.chat_sdk.utils.ViewModelFactory
 import com.febrian.firebasenotification.databinding.ActivityChatBinding
 import com.febrian.firebasenotification.ui.TOPIC
-import com.febrian.firebasenotification.utils.Constant
-import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-const val TAG = "ChatActivity"
 class ChatActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityChatBinding
+    private lateinit var binding: ActivityChatBinding
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +24,8 @@ class ChatActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         sharedPreferences = getSharedPreferences(Constant.sharedPreferences, Context.MODE_PRIVATE)
-        database = FirebaseDatabase.getInstance().reference
+
+        val chatViewModel = ViewModelFactory(this).create(ChatViewModel::class.java)
 
         // another user
         val user = intent.getParcelableExtra<User>(Constant.USER) as User
@@ -46,29 +39,14 @@ class ChatActivity : AppCompatActivity() {
 
         binding.send.setOnClickListener {
             val message = binding.message.text.toString()
-            val chat = Chat(username, message, token)
-            database.child("chats").child(uid+user.uid).setValue(chat)
+            val chat = Chat(username, message, user.token.toString())
+            val rootKey = uid + user.uid
 
-            PushNotification(
-                NotificationData(username, message),
-                user.token.toString()
-            ).also {
-                sendNotification(it)
-            }
+            chatViewModel.addMessage(rootKey, chat)
         }
     }
 
-
-    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val response = NotificationService.api.postNotification(notification)
-            if(response.isSuccessful) {
-                Log.d(TAG, "Response: ${response}")
-            } else {
-                Log.e(TAG, response.errorBody().toString())
-            }
-        } catch(e: Exception) {
-            Log.e(TAG, e.toString())
-        }
+    companion object{
+        const val TAG = "ChatActivity"
     }
 }

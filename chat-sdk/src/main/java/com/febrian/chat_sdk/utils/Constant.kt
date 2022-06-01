@@ -1,4 +1,4 @@
-package com.febrian.firebasenotification.utils
+package com.febrian.chat_sdk.utils
 
 object Constant {
 

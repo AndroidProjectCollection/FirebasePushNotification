@@ -4,10 +4,10 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.febrian.firebasenotification.data.User
+import com.febrian.chat_sdk.data.User
+import com.febrian.chat_sdk.utils.Constant
 import com.febrian.firebasenotification.databinding.ItemUserBinding
 import com.febrian.firebasenotification.ui.activity.ChatActivity
-import com.febrian.firebasenotification.utils.Constant
 
 class FindUserAdapter(private val listUser : ArrayList<User>) : RecyclerView.Adapter<FindUserAdapter.ViewHolder>() {
     inner class ViewHolder(private val binding : ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {

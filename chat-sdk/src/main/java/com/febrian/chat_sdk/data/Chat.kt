@@ -1,4 +1,4 @@
-package com.febrian.firebasenotification.data
+package com.febrian.chat_sdk.data
 
 data class Chat(
     var sender : String,

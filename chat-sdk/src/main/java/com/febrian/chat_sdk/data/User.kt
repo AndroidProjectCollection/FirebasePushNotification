@@ -1,4 +1,4 @@
-package com.febrian.firebasenotification.data
+package com.febrian.chat_sdk.data
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -11,3 +11,4 @@ data class User(
     var password : String? = null,
     var token : String? = null
 ) : Parcelable
+
